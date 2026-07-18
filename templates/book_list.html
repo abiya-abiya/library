@@ -1,7 +1,21 @@
 {%extends 'base.html'%}
 {%block content%}
-{%for i in books%}
+<form method="get">
+    <input type="text" name = "q" placeholder="Kitob nomi..." value="{{query|default:''}}">
+    <button type="submit">Qidirish</button>
+</form>
+<hr>
 
-<p>{{i.title}}</p><br>
+  {% for book in books %}
+
+        <h3>{{ book.title }}</h3>
+        <p>{{ book.author }}</p>
+        <p>{{ book.year }}</p>
+
+        <hr>
+    {% empty %}
+        <p>Kitob topilmadi</p>
+
+
 {%endfor%}
 {%endblock%}

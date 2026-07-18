@@ -14,8 +14,27 @@ def index(request):
 
 def book_list(request):
     books = Book.objects.all()
+    query = request.GET.get("q")
+    title = request.GET.get("title")
+    author = request.GET.get("author")
+    year = request.GET.get("year")
+
+    if query:
+        books = books.filter(title__icontains=query)
+    if title:
+        books = books.filter(title__icontains=title)
+    if author:
+        books = books.filter(author__icontains=author)
+    if year:
+        books = books.filter(year__icontains=year)
+
+
     context = {
-        'books': books
+        'books': books,
+        'query': query,
+        'title': title,
+        'author': author,
+        'year': year,
     }
     return render(request, "book_list.html", context)
 
@@ -65,3 +84,6 @@ def book_delete(request, pk):
         'book': book
     }
     return render(request, "book/book_delete.html", context)
+
+
+
