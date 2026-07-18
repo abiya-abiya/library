@@ -1,1 +1,9 @@
-<p>Salom</p>
+{%extends 'base.html'%}
+{%block content%}
+{% for b in books %}
+<a href = "{% url 'book_detail' b.pk %}">
+    {{b.title}}
+</a>
+{% endfor %}
+
+{%endblock%}
