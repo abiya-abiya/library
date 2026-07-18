@@ -40,3 +40,17 @@ def book_create(request):
         'form': form
     }
     return render(request, "book/book_create.html", context)
+
+def book_update(request, pk):
+    book = get_object_or_404(Book,pk=pk)
+    if request.method == "POST":
+        form = BookForm(request.POST, instance=book)
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+    else:
+        form = BookForm(instance=book)
+    context = {
+        'form': form
+    }
+    return render(request, "book/book_update.html", context)

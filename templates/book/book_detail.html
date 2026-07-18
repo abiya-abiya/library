@@ -5,5 +5,7 @@
 {{book.author}}
 {{book.year}}
 {{book.created_at}}
-
+<a href = "{% url 'book_update' book.pk %}">
+    edit
+</a>
 {%endblock%}
