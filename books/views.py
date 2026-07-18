@@ -1,5 +1,6 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 
+from books.forms import BookForm
 from books.models import Book
 
 
@@ -25,3 +26,17 @@ def book_detail(request, pk):
         'book': book
     }
     return render(request, "book/book_detail.html", context)
+
+
+def book_create(request):
+    if request.method == "POST":
+        form = BookForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+    else:
+        form = BookForm()
+    context = {
+        'form': form
+    }
+    return render(request, "book/book_create.html", context)
