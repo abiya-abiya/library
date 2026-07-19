@@ -18,7 +18,7 @@
             </button>
 
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
+                <ul class="navbar-nav ms-auto align-items-lg-center">
                     <li class="nav-item">
                         <a class="nav-link" href="/">Bosh sahifa</a>
                     </li>
@@ -28,6 +28,25 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/admin/">Admin</a>
                     </li>
+
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <span class="nav-link">👤 {{ user.username }}</span>
+                    </li>
+                    <li class="nav-item">
+                        <form method="post" action="{% url 'logout' %}" class="d-inline">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-outline-light btn-sm ms-lg-2">Chiqish</button>
+                        </form>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="btn btn-outline-light btn-sm ms-lg-2" href="#">Kirish</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-light btn-sm ms-lg-2 mt-2 mt-lg-0" href="{% url 'register' %}">Ro'yxatdan o'tish</a>
+                    </li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
